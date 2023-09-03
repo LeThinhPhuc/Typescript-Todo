@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import FormTask from "./components/formTask";
 import TaskList from "./components/taskList";
 import './App.css'
+
+import { TodoProvider } from "./Context/todoProvider";
+
 import { Tasks } from "./Interface";
 // export interface Tasks{
 //   task:{
@@ -24,8 +27,10 @@ const App: React.FC = () => {
 
   return (
     <div>
-      <FormTask tasks={tasks} setTasks={setTasks}></FormTask>
-      <TaskList tasks={tasks} setTasks={setTasks}></TaskList>
+      <TodoProvider>
+      <FormTask ></FormTask>
+      <TaskList></TaskList>
+      </TodoProvider>
     </div>
   )
 }

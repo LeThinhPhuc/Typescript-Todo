@@ -1,14 +1,17 @@
-import React, { useState } from "react";
+import React, { useState , useContext} from "react";
 import { Tasks } from "../Interface";
 import uuid4 from "uuid4";
-interface Props {
-    tasks: Tasks,
-    setTasks: React.Dispatch<React.SetStateAction<Tasks>>
-}
+
+import { todoContext } from "../Context/todoProvider";
+
 
 // const FormTask:React.FC<{tasks :Tasks, setTasks: React.Dispatch<React.SetStateAction<Tasks>> }> = ({tasks, setTasks})=>{
-const FormTask = ({ tasks, setTasks }: Props) => {
+const FormTask = () => {
     const [data, setData] = useState({ id: "", name: "", dateLeft: 0 })
+    
+    const context = useContext(todoContext);
+const { tasks, setTasks } = context || { tasks: [], setTasks:()=>[] };
+    
     const onChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
         setData({ ...data, [e.target.name]: e.target.value })
     }

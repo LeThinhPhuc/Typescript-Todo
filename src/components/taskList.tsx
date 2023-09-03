@@ -1,33 +1,28 @@
+import { useContext } from "react";
 import React from "react";
+import { todoContext } from "../Context/todoProvider";
 import { Tasks } from "../Interface";
 import TaskItem from "./taskItem";
-const TaskList: React.FC<{ tasks: Tasks, setTasks: React.Dispatch<React.SetStateAction<Tasks>> }> = ({ tasks, setTasks }) => {
-    const handleDelete = (idTemp: string): void => {
-        const updatedTasks = tasks.filter((task) => task.id !== idTemp);
-        // Cập nhật state
-        setTasks(updatedTasks);
 
-    }
 
-    const handleEdit = (id: string, name: string, dateLeft: number): void => {
 
-        const tmp = [...tasks];
-        for (let i = 0; i < tmp.length; i++) {
-            if (tmp[i].id === id) {
-                tmp[i].name = name ? name : tmp[i].name;
-                tmp[i].dateLeft = dateLeft ? dateLeft : tmp[i].dateLeft
-            }
-        }
-        setTasks(tmp);
 
-    }
+const TaskList = () => {
+//    const {tasks, setTasks} = useContext(todoContext)
+const context = useContext(todoContext);
+const tasks = context ? context.tasks : [];
+const setTasks = context ? context.setTasks : () => {};
+
+// Rest of your code...
+
+
     return (
         <div>
             {
                 tasks.map((item) => {
                     return (
                         <div >
-                            <TaskItem onEdit={handleEdit} onDelete={handleDelete} key={item.id} id={item.id} name={item.name} dateLeft={item.dateLeft}></TaskItem>
+                            <TaskItem key={item.id} id={item.id} name={item.name} dateLeft={item.dateLeft}></TaskItem>
                         </div>
                     )
                 }
